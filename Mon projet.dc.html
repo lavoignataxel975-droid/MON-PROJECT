@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#f2f0eb;color:#161513;font-family:'DM Sans',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+*{box-sizing:border-box}
+a{color:#161513}a:hover{color:#8a6a1c}
+textarea::placeholder,input::placeholder{color:#6f6b63}
+textarea:focus,input:focus{outline:none;border-color:oklch(0.82 0.13 85) !important}
+</style>
+</helmet>
+<section data-screen-label="Mon projet" style="padding:clamp(40px,7vw,96px) clamp(12px,3vw,48px);max-width:1440px;margin:0 auto">
+  <div style="display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:16px 40px;margin-bottom:clamp(24px,3vw,40px);padding:0 clamp(4px,1vw,12px)">
+    <div style="display:flex;flex-direction:column;gap:12px">
+      <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:#6f6b63">Configurateur</span>
+      <h2 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(48px,7vw,104px);line-height:.92;letter-spacing:-.02em">Mon projet</h2>
+    </div>
+    <p style="margin:0;max-width:380px;font-size:16px;line-height:1.5;color:#55514a;text-wrap:pretty">Composez votre site en quatre étapes. Le prix se met à jour à chaque choix.</p>
+  </div>
+
+  <div style="position:relative;background:#141311;border-radius:clamp(20px,2.4vw,32px);min-height:min(86vh,860px);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 40px 80px -40px rgba(20,19,17,.55)">
+    <div style="display:flex;flex-wrap:wrap;align-items:center;justify-content:space-between;gap:16px 24px;padding:clamp(16px,2vw,24px) clamp(16px,3vw,40px);border-bottom:1px solid rgba(255,255,255,.08)">
+      <div style="display:flex;gap:6px;flex:1 1 420px;min-width:0">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="4">
+          <button onClick="{{ s.go }}" style="flex:1 1 0;min-width:0;display:flex;flex-direction:column;gap:10px;background:none;border:0;padding:0;text-align:left;cursor:{{ s.cursor }};color:#f2f0eb;font:inherit">
+            <span style="display:block;height:3px;width:100%;border-radius:2px;background:rgba(255,255,255,.12);overflow:hidden"><span style="display:block;height:100%;width:{{ s.fill }};background:oklch(0.82 0.13 85);transition:width .6s cubic-bezier(.77,0,.18,1)"></span></span>
+            <span style="display:flex;gap:8px;align-items:baseline;min-width:0;opacity:{{ s.op }};transition:opacity .4s">
+              <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.08em">{{ s.num }}</span>
+              <span style="font-size:13px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis">{{ s.label }}</span>
+            </span>
+          </button>
+        </sc-for>
+      </div>
+      <sc-if value="{{ showTotal }}" hint-placeholder-val="{{ true }}">
+        <div style="display:flex;align-items:baseline;gap:12px;color:#f2f0eb">
+          <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a29d93">Total</span>
+          <span style="font-family:'Instrument Serif',serif;font-size:36px;line-height:1;color:oklch(0.82 0.13 85)">{{ totalFmt }}</span>
+        </div>
+      </sc-if>
+    </div>
+
+    <div style="position:relative;flex:1;display:flex;overflow:hidden">
+      <div style="display:flex;width:100%;transform:translateX({{ trackX }});transition:transform {{ dur }}ms cubic-bezier(.77,0,.18,1);will-change:transform">
+
+        <div data-screen-label="Étape 1" style="flex:0 0 100%;padding:clamp(12px,2.6vw,36px);display:flex;opacity:{{ o1 }};transform:scale({{ s1 }});transition:opacity {{ dur }}ms, transform {{ dur }}ms cubic-bezier(.77,0,.18,1)">
+          <div style="flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,360px),1fr));gap:clamp(24px,4vw,64px);background:#1d1c19;border:1px solid rgba(255,255,255,.08);border-radius:clamp(16px,2vw,24px);padding:clamp(24px,4vw,56px);color:#f2f0eb">
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <span style="font-family:'Instrument Serif',serif;font-size:clamp(72px,10vw,160px);line-height:.8;color:oklch(0.82 0.13 85)">01</span>
+              <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(34px,4vw,56px);line-height:1;letter-spacing:-.01em;text-wrap:balance">Présentez votre projet</h3>
+              <p style="margin:0;font-size:16px;line-height:1.55;color:#a29d93;max-width:420px;text-wrap:pretty">Votre activité, vos objectifs, votre public. Ajoutez des photos pour que l'on cerne votre univers.</p>
+              <div style="margin-top:auto;display:flex;align-items:center;gap:12px;padding-top:16px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:14px;padding:8px 14px;border-radius:999px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.1)">+500 €</span>
+                <span style="font-size:14px;color:#a29d93">Site vitrine sur mesure</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <label style="display:flex;flex-direction:column;gap:10px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a29d93">Votre entreprise</span>
+                <textarea value="{{ desc }}" onChange="{{ onDesc }}" placeholder="Ex. Boulangerie artisanale à Lyon, deux boutiques, on veut présenter nos produits et prendre des commandes…" style="min-height:180px;resize:vertical;background:#141311;border:1px solid rgba(255,255,255,.12);border-radius:16px;padding:18px;color:#f2f0eb;font:inherit;font-size:16px;line-height:1.5;transition:border-color .2s"></textarea>
+              </label>
+              <div style="display:flex;flex-direction:column;gap:10px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:#a29d93">Photos · {{ photoCount }}/3</span>
+                <input ref="{{ fileRef }}" type="file" accept="image/*" multiple="multiple" onChange="{{ onFiles }}" style="display:none"></input>
+                <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px">
+                  <sc-for list="{{ photos }}" as="p" hint-placeholder-count="0">
+                    <div style="position:relative;aspect-ratio:1;border-radius:14px;overflow:hidden;background:#141311">
+                      <img src="{{ p.url }}" alt="" style="width:100%;height:100%;object-fit:cover;display:block"></img>
+                      <button onClick="{{ p.remove }}" aria-label="Retirer" style="position:absolute;top:8px;right:8px;width:28px;height:28px;border-radius:50%;border:0;background:rgba(20,19,17,.8);color:#f2f0eb;cursor:pointer;font-size:14px;line-height:1">×</button>
+                    </div>
+                  </sc-for>
+                  <sc-if value="{{ canAdd }}" hint-placeholder-val="{{ true }}">
+                    <button onClick="{{ pick }}" style="aspect-ratio:1;border-radius:14px;border:1px dashed rgba(255,255,255,.22);background:repeating-linear-gradient(135deg,rgba(255,255,255,.03) 0 8px,transparent 8px 16px);color:#a29d93;cursor:pointer;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:6px;font:inherit" style-hover="border-color:oklch(0.82 0.13 85);color:#f2f0eb">
+                      <span style="font-size:24px;line-height:1">+</span>
+                      <span style="font-family:'JetBrains Mono',monospace;font-size:11px">Ajouter</span>
+                    </button>
+                  </sc-if>
+                </div>
+              </div>
+              <div style="margin-top:auto;display:flex;justify-content:flex-end;align-items:center;gap:16px;padding-top:8px">
+                <sc-if value="{{ needDesc }}" hint-placeholder-val="{{ false }}"><span style="font-size:13px;color:#a29d93">Décrivez votre projet pour continuer</span></sc-if>
+                <button onClick="{{ next }}" disabled="{{ blocked1 }}" style="display:flex;align-items:center;gap:12px;padding:18px 28px;border-radius:999px;border:0;background:oklch(0.82 0.13 85);color:#141311;font:inherit;font-size:16px;font-weight:600;cursor:pointer;opacity:{{ btn1op }};transition:transform .2s,opacity .2s" style-hover="transform:translateX(4px)">Continuer <span>→</span></button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <div data-screen-label="Étape 2" style="flex:0 0 100%;padding:clamp(12px,2.6vw,36px);display:flex;opacity:{{ o2 }};transform:scale({{ s2 }});transition:opacity {{ dur }}ms, transform {{ dur }}ms cubic-bezier(.77,0,.18,1)">
+          <div style="flex:1;display:flex;flex-direction:column;gap:clamp(24px,3vw,40px);background:#1d1c19;border:1px solid rgba(255,255,255,.08);border-radius:clamp(16px,2vw,24px);padding:clamp(24px,4vw,56px);color:#f2f0eb">
+            <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 32px">
+              <span style="font-family:'Instrument Serif',serif;font-size:clamp(72px,10vw,160px);line-height:.8;color:oklch(0.82 0.13 85)">02</span>
+              <div style="display:flex;flex-direction:column;gap:10px;flex:1 1 320px">
+                <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(34px,4vw,56px);line-height:1;text-wrap:balance">Quelles fonctionnalités souhaitez-vous ?</h3>
+                <p style="margin:0;font-size:16px;color:#a29d93">Plusieurs choix possibles. Les deux formules Click &amp; Collect s'excluent.</p>
+              </div>
+            </div>
+            <div style="flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,260px),1fr));gap:16px">
+              <sc-for list="{{ features }}" as="f" hint-placeholder-count="3">
+                <button onClick="{{ f.toggle }}" style="display:flex;flex-direction:column;gap:20px;text-align:left;padding:clamp(22px,2.4vw,32px);min-height:260px;border-radius:20px;border:1px solid {{ f.border }};background:{{ f.bg }};color:{{ f.fg }};font:inherit;cursor:pointer;transition:background .35s,border-color .35s,color .35s,transform .25s" style-hover="transform:translateY(-4px)">
+                  <span style="display:flex;justify-content:space-between;align-items:center;width:100%">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.12em;text-transform:uppercase;opacity:.7">{{ f.tag }}</span>
+                    <span style="width:26px;height:26px;border-radius:50%;border:1.5px solid {{ f.fg }};display:flex;align-items:center;justify-content:center;font-size:13px">{{ f.mark }}</span>
+                  </span>
+                  <span style="font-family:'Instrument Serif',serif;font-size:clamp(28px,2.6vw,38px);line-height:1.02;text-wrap:balance">{{ f.name }}</span>
+                  <span style="font-size:15px;line-height:1.5;opacity:.75;text-wrap:pretty">{{ f.desc }}</span>
+                  <span style="margin-top:auto;font-family:'JetBrains Mono',monospace;font-size:16px">{{ f.price }}</span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+              <button onClick="{{ prev }}" style="padding:16px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:none;color:#f2f0eb;font:inherit;font-size:15px;cursor:pointer">← Retour</button>
+              <button onClick="{{ next }}" style="display:flex;align-items:center;gap:12px;padding:18px 28px;border-radius:999px;border:0;background:oklch(0.82 0.13 85);color:#141311;font:inherit;font-size:16px;font-weight:600;cursor:pointer;transition:transform .2s" style-hover="transform:translateX(4px)">Continuer <span>→</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div data-screen-label="Étape 3" style="flex:0 0 100%;padding:clamp(12px,2.6vw,36px);display:flex;opacity:{{ o3 }};transform:scale({{ s3 }});transition:opacity {{ dur }}ms, transform {{ dur }}ms cubic-bezier(.77,0,.18,1)">
+          <div style="flex:1;display:flex;flex-direction:column;gap:clamp(24px,3vw,40px);background:#1d1c19;border:1px solid rgba(255,255,255,.08);border-radius:clamp(16px,2vw,24px);padding:clamp(24px,4vw,56px);color:#f2f0eb">
+            <div style="display:flex;flex-wrap:wrap;align-items:flex-end;gap:12px 32px">
+              <span style="font-family:'Instrument Serif',serif;font-size:clamp(72px,10vw,160px);line-height:.8;color:oklch(0.82 0.13 85)">03</span>
+              <div style="display:flex;flex-direction:column;gap:10px;flex:1 1 320px">
+                <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(34px,4vw,56px);line-height:1">Ajoutez des options</h3>
+                <p style="margin:0;font-size:16px;color:#a29d93">Traduction complète du site, en plus du français. +150 € par langue.</p>
+              </div>
+            </div>
+            <div style="flex:1;display:grid;grid-template-columns:repeat(auto-fill,minmax(min(100%,200px),1fr));grid-auto-rows:minmax(120px,1fr);gap:12px;align-content:start">
+              <sc-for list="{{ langs }}" as="l" hint-placeholder-count="6">
+                <button onClick="{{ l.toggle }}" style="display:flex;flex-direction:column;justify-content:space-between;gap:16px;text-align:left;padding:20px 22px;border-radius:18px;border:1px solid {{ l.border }};background:{{ l.bg }};color:{{ l.fg }};font:inherit;cursor:pointer;transition:background .35s,border-color .35s,color .35s,transform .25s" style-hover="transform:translateY(-3px)">
+                  <span style="display:flex;justify-content:space-between;align-items:center;width:100%">
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:13px;letter-spacing:.08em">{{ l.code }}</span>
+                    <span style="width:22px;height:22px;border-radius:50%;border:1.5px solid {{ l.fg }};display:flex;align-items:center;justify-content:center;font-size:11px">{{ l.mark }}</span>
+                  </span>
+                  <span style="display:flex;justify-content:space-between;align-items:baseline;gap:8px;width:100%">
+                    <span style="font-family:'Instrument Serif',serif;font-size:28px;line-height:1">{{ l.name }}</span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:13px;opacity:.75">+150 €</span>
+                  </span>
+                </button>
+              </sc-for>
+            </div>
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:16px">
+              <button onClick="{{ prev }}" style="padding:16px 22px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:none;color:#f2f0eb;font:inherit;font-size:15px;cursor:pointer">← Retour</button>
+              <button onClick="{{ next }}" style="display:flex;align-items:center;gap:12px;padding:18px 28px;border-radius:999px;border:0;background:oklch(0.82 0.13 85);color:#141311;font:inherit;font-size:16px;font-weight:600;cursor:pointer;transition:transform .2s" style-hover="transform:translateX(4px)">Voir mon devis <span>→</span></button>
+            </div>
+          </div>
+        </div>
+
+        <div data-screen-label="Étape 4" style="flex:0 0 100%;padding:clamp(12px,2.6vw,36px);display:flex;opacity:{{ o4 }};transform:scale({{ s4 }});transition:opacity {{ dur }}ms, transform {{ dur }}ms cubic-bezier(.77,0,.18,1)">
+          <div style="flex:1;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,380px),1fr));gap:clamp(24px,4vw,64px);background:#1d1c19;border:1px solid rgba(255,255,255,.08);border-radius:clamp(16px,2vw,24px);padding:clamp(24px,4vw,56px);color:#f2f0eb">
+            <div style="display:flex;flex-direction:column;gap:20px">
+              <span style="font-family:'Instrument Serif',serif;font-size:clamp(72px,10vw,160px);line-height:.8;color:oklch(0.82 0.13 85)">04</span>
+              <h3 style="margin:0;font-family:'Instrument Serif',serif;font-weight:400;font-size:clamp(34px,4vw,56px);line-height:1">Votre devis</h3>
+              <div style="display:flex;flex-direction:column;border-top:1px solid rgba(255,255,255,.1)">
+                <sc-for list="{{ lines }}" as="ln" hint-placeholder-count="3">
+                  <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding:14px 0;border-bottom:1px solid rgba(255,255,255,.1)">
+                    <span style="display:flex;flex-direction:column;gap:2px;min-width:0">
+                      <span style="font-size:16px">{{ ln.label }}</span>
+                      <span style="font-size:13px;color:#a29d93">{{ ln.sub }}</span>
+                    </span>
+                    <span style="font-family:'JetBrains Mono',monospace;font-size:14px;white-space:nowrap">{{ ln.price }}</span>
+                  </div>
+                </sc-for>
+              </div>
+              <div style="display:flex;justify-content:space-between;align-items:baseline;gap:16px;padding-top:8px">
+                <span style="font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;text-transform:uppercase;color:#a29d93">Total estimé HT</span>
+                <span style="font-family:'Instrument Serif',serif;font-size:clamp(56px,6vw,88px);line-height:.9;color:oklch(0.82 0.13 85)">{{ totalFmt }}</span>
+              </div>
+            </div>
+            <div style="display:flex;flex-direction:column;gap:16px;justify-content:flex-end">
+              <sc-if value="{{ notSent }}" hint-placeholder-val="{{ true }}">
+                <div style="display:flex;flex-direction:column;gap:16px">
+                  <p style="margin:0;font-size:16px;line-height:1.55;color:#a29d93;text-wrap:pretty">Laissez vos coordonnées : nous revenons vers vous sous 48 h avec un devis détaillé.</p>
+                  <input value="{{ name }}" onChange="{{ onName }}" placeholder="Nom et prénom" style="background:#141311;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px;color:#f2f0eb;font:inherit;font-size:16px"></input>
+                  <input value="{{ email }}" onChange="{{ onEmail }}" type="email" placeholder="Email" style="background:#141311;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px;color:#f2f0eb;font:inherit;font-size:16px"></input>
+                  <input value="{{ phone }}" onChange="{{ onPhone }}" type="tel" placeholder="Téléphone" style="background:#141311;border:1px solid rgba(255,255,255,.12);border-radius:14px;padding:18px;color:#f2f0eb;font:inherit;font-size:16px"></input>
+                  <button onClick="{{ send }}" disabled="{{ blockedSend }}" style="margin-top:8px;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:26px 32px;border-radius:20px;border:0;background:oklch(0.82 0.13 85);color:#141311;font:inherit;font-size:clamp(18px,1.6vw,22px);font-weight:600;cursor:pointer;opacity:{{ sendOp }};transition:transform .2s,opacity .2s" style-hover="transform:translateY(-2px)">Envoyer ma demande <span style="font-size:24px">→</span></button>
+                  <button onClick="{{ prev }}" style="align-self:flex-start;padding:12px 0;border:0;background:none;color:#a29d93;font:inherit;font-size:15px;cursor:pointer">← Modifier mes options</button>
+                </div>
+              </sc-if>
+              <sc-if value="{{ sent }}" hint-placeholder-val="{{ false }}">
+                <div style="display:flex;flex-direction:column;gap:16px;padding:32px;border-radius:20px;background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.1)">
+                  <span style="width:48px;height:48px;border-radius:50%;background:oklch(0.82 0.13 85);color:#141311;display:flex;align-items:center;justify-content:center;font-size:22px">✓</span>
+                  <span style="font-family:'Instrument Serif',serif;font-size:40px;line-height:1">Demande envoyée</span>
+                  <span style="font-size:16px;line-height:1.55;color:#a29d93">Merci {{ firstName }}. Nous revenons vers vous sous 48 h.</span>
+                  <button onClick="{{ reset }}" style="align-self:flex-start;padding:14px 20px;border-radius:999px;border:1px solid rgba(255,255,255,.16);background:none;color:#f2f0eb;font:inherit;font-size:15px;cursor:pointer">Nouveau projet</button>
+                </div>
+              </sc-if>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+</section>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;transitionMs&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:900,&quot;min&quot;:300,&quot;max&quot;:1600,&quot;step&quot;:50,&quot;unit&quot;:&quot;ms&quot;,&quot;tsType&quot;:&quot;number&quot;},&quot;showTotal&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;},&quot;requireDescription&quot;:{&quot;editor&quot;:&quot;boolean&quot;,&quot;default&quot;:true,&quot;tsType&quot;:&quot;boolean&quot;}}">
+class Component extends DCLogic {
+  state = { step: 0, desc: '', photos: [], feats: [], langs: [], name: '', email: '', phone: '', sent: false };
+  fileRef = React.createRef();
+  FEATS = [
+    { id: 'cms', tag: 'Gestion', name: 'CMS', desc: 'Modifiez textes, images et pages vous-même, sans développeur.', price: 300 },
+    { id: 'cc', tag: 'Commerce', name: 'Click & Collect sans paiement', desc: 'Vos clients réservent en ligne et règlent sur place.', price: 300, group: 'cc' },
+    { id: 'ccp', tag: 'Commerce', name: 'Click & Collect avec paiement', desc: 'Commande et paiement sécurisé en ligne, retrait en boutique.', price: 600, group: 'cc' },
+  ];
+  LANGS = [['en','Anglais'],['es','Espagnol'],['it','Italien'],['de','Allemand'],['pt','Portugais'],['nl','Néerlandais']];
+  fmt = n => n.toLocaleString('fr-FR') + ' €';
+  go = s => this.setState({ step: Math.max(0, Math.min(3, s)) });
+  onFiles = e => {
+    const files = Array.from(e.target.files || []).slice(0, 3 - this.state.photos.length);
+    const add = files.map(f => ({ id: Math.random().toString(36).slice(2), url: URL.createObjectURL(f) }));
+    this.setState(s => ({ photos: [...s.photos, ...add].slice(0, 3) }));
+    e.target.value = '';
+  };
+  toggleFeat = f => this.setState(s => {
+    let feats = s.feats.includes(f.id) ? s.feats.filter(x => x !== f.id) : [...s.feats, f.id];
+    if (f.group && !s.feats.includes(f.id)) feats = feats.filter(x => x === f.id || this.FEATS.find(g => g.id === x).group !== f.group);
+    return { feats };
+  });
+  renderVals() {
+    const st = this.state, p = this.props;
+    const dur = p.transitionMs ?? 900;
+    const requireDesc = p.requireDescription ?? true;
+    const blocked1 = requireDesc && !st.desc.trim();
+    const selFeats = this.FEATS.filter(f => st.feats.includes(f.id));
+    const selLangs = this.LANGS.filter(l => st.langs.includes(l[0]));
+    const total = 500 + selFeats.reduce((a, f) => a + f.price, 0) + selLangs.length * 150;
+    const on = { bg: 'oklch(0.82 0.13 85)', fg: '#141311', border: 'oklch(0.82 0.13 85)', mark: '✓' };
+    const off = { bg: '#141311', fg: '#f2f0eb', border: 'rgba(255,255,255,.12)', mark: '' };
+    const labels = ['Projet', 'Fonctionnalités', 'Options', 'Devis'];
+    const pv = i => ({ o: i === st.step ? 1 : 0.35, s: i === st.step ? 1 : 0.94 });
+    const lines = [
+      { label: 'Site vitrine sur mesure', sub: st.photos.length ? `${st.photos.length} photo${st.photos.length > 1 ? 's' : ''} jointe${st.photos.length > 1 ? 's' : ''}` : 'Présentation du projet', price: this.fmt(500) },
+      ...selFeats.map(f => ({ label: f.name, sub: 'Fonctionnalité', price: '+' + this.fmt(f.price) })),
+      ...(selLangs.length ? [{ label: 'Traduction', sub: selLangs.map(l => l[1]).join(', '), price: '+' + this.fmt(selLangs.length * 150) }] : []),
+    ];
+    const canSend = st.email.includes('@');
+    return {
+      dur, trackX: `-${st.step * 100}%`, showTotal: p.showTotal ?? true, totalFmt: this.fmt(total),
+      o1: pv(0).o, s1: pv(0).s, o2: pv(1).o, s2: pv(1).s, o3: pv(2).o, s3: pv(2).s, o4: pv(3).o, s4: pv(3).s,
+      steps: labels.map((label, i) => ({ num: '0' + (i + 1), label, fill: i <= st.step ? '100%' : '0%', op: i === st.step ? 1 : i < st.step ? 0.7 : 0.4, cursor: i < st.step ? 'pointer' : 'default', go: () => { if (i < st.step) this.go(i); } })),
+      desc: st.desc, onDesc: e => this.setState({ desc: e.target.value }),
+      photos: st.photos.map(ph => ({ url: ph.url, remove: () => this.setState(s => ({ photos: s.photos.filter(x => x.id !== ph.id) })) })),
+      photoCount: st.photos.length, canAdd: st.photos.length < 3, fileRef: this.fileRef, pick: () => this.fileRef.current && this.fileRef.current.click(), onFiles: this.onFiles,
+      blocked1, needDesc: blocked1, btn1op: blocked1 ? 0.4 : 1,
+      next: () => { if (st.step === 0 && blocked1) return; this.go(st.step + 1); }, prev: () => this.go(st.step - 1),
+      features: this.FEATS.map(f => ({ ...(st.feats.includes(f.id) ? on : off), tag: f.tag, name: f.name, desc: f.desc, price: '+' + this.fmt(f.price), toggle: () => this.toggleFeat(f) })),
+      langs: this.LANGS.map(([code, name]) => ({ ...(st.langs.includes(code) ? on : off), code: code.toUpperCase(), name, toggle: () => this.setState(s => ({ langs: s.langs.includes(code) ? s.langs.filter(x => x !== code) : [...s.langs, code] })) })),
+      lines,
+      name: st.name, email: st.email, phone: st.phone,
+      onName: e => this.setState({ name: e.target.value }), onEmail: e => this.setState({ email: e.target.value }), onPhone: e => this.setState({ phone: e.target.value }),
+      blockedSend: !canSend, sendOp: canSend ? 1 : 0.4,
+      send: () => canSend && this.setState({ sent: true }), sent: st.sent, notSent: !st.sent,
+      firstName: (st.name.trim().split(' ')[0]) || '',
+      reset: () => this.setState({ step: 0, desc: '', photos: [], feats: [], langs: [], name: '', email: '', phone: '', sent: false }),
+    };
+  }
+}
+</script>
+</body>
+</html>
